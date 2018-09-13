@@ -10,7 +10,7 @@ import store from './redux/store'
 
 const history = createBrowserHistory();
 
-const ConnectedApp = (
+const cApp = (
   <Provider store={store}>
     <ConnectedRouter history={history}>
       <App />
@@ -19,5 +19,5 @@ const ConnectedApp = (
 )
 const root = document.getElementById('root') as HTMLElement;
 
-ReactDOM.render(ConnectedApp, root);
+ReactDOM.render(cApp, root);
 registerServiceWorker();
