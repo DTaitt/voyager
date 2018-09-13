@@ -1,12 +1,12 @@
 import { combineReducers } from 'redux';
 import { actionType } from './actions';
 
-interface restaurantAction {
+interface RestaurantAction {
     type: string,
     payload?: []
 }
 
-const restaurantsDataReducer = (restaurants = [], action:restaurantAction) => {
+const restaurantsDataReducer = (restaurants = [], action:RestaurantAction) => {
     switch (action.type) {
         case actionType.RESOLVED_GET_RESTAURANTS:
             return action.payload
@@ -16,19 +16,19 @@ const restaurantsDataReducer = (restaurants = [], action:restaurantAction) => {
     }
 }
 
-const isRestaurantsDataLoaded = (isRestaurantsDataLoaded = false, action:restaurantAction) => {
+const isDataLoadedReducer = (isDataLoaded = false, action:RestaurantAction) => {
     switch (action.type) {
         case actionType.RESOLVED_GET_RESTAURANTS:
-            return isRestaurantsDataLoaded = true;
+            return isDataLoaded = true;
         case actionType.REJECTED_GET_RESTAURANTS:
         default:
-            return isRestaurantsDataLoaded = false;
+            return isDataLoaded = false;
     }
 }
 
 const restaurantsReducer = combineReducers({
-    restaurantsDataReducer,
-    isRestaurantsDataLoaded,
+    data: restaurantsDataReducer,
+    isDataLoaded: isDataLoadedReducer,
 })
 
 export default restaurantsReducer;

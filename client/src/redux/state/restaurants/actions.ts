@@ -19,7 +19,6 @@ export const getRestaurants = () => {
             })
         } catch (error) {
             dispatch({ type: actionType.REJECTED_GET_RESTAURANTS })
-            console.log(error)
         }
     }
 }
