@@ -32,6 +32,8 @@ class ListPage extends React.PureComponent<Props, {}> {
                     rating = { restaurant.rating }
                     price = { restaurant.price }
                     phone = { restaurant.display_phone }
+                    display_address_line_1 = { restaurant.location.display_address[0] }
+                    display_address_line_2 = { restaurant.location.display_address[1] }
                 />
             })
         );

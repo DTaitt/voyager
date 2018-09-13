@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import { setDetailPageData } from './../../redux/state/detailPage/actions'
+import { formatUrl } from './../../utils/url'
 
 interface Props {
     key:string,
@@ -16,6 +17,8 @@ interface Props {
     rating:number,
     price:string,
     phone:string,
+    display_address_line_1:string,
+    display_address_line_2:string,
     setDetailPageData(restaurant:any):void,
 }
 
@@ -24,7 +27,7 @@ const Restaurant = (props:Props) => {
     return (
         <Card className='restuarant'>
             <Link 
-                to={`restaurants/${restaurant.name}/${restaurant.id}`}
+                to={`restaurants/${formatUrl(restaurant.name)}/${restaurant.id}`}
                 onClick={() => props.setDetailPageData(restaurant)}
             >
                 <Image src={restaurant.image_url} />
@@ -43,6 +46,7 @@ const Restaurant = (props:Props) => {
                 <p>Rating: {restaurant.rating}</p>
                 <p>Price: {restaurant.price}</p>
                 <p>Phone: {restaurant.phone}</p>
+                <p>Address: {`${restaurant.display_address_line_1} ${restaurant.display_address_line_2}`}</p>
             </Card.Content>
         </Card>
     );

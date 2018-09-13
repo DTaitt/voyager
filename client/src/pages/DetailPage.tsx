@@ -8,14 +8,16 @@ interface Props {
     key:string,
     restaurant: {
         id:string,
-    name:string,
-    image_url:string,
-    is_closed:boolean,
-    url:string,
-    review_count:number,
-    rating:number,
-    price:string,
-    phone:string,
+        name:string,
+        image_url:string,
+        is_closed:boolean,
+        url:string,
+        review_count:number,
+        rating:number,
+        price:string,
+        phone:string,
+        display_address_line_1:string,
+        display_address_line_2:string,
     }
 }
 
@@ -38,6 +40,7 @@ const DetailPage = (props:Props) => {
                 <p>Rating: {restaurant.rating}</p>
                 <p>Price: {restaurant.price}</p>
                 <p>Phone: {restaurant.phone}</p>
+                <p>Address: {`${restaurant.display_address_line_1} ${restaurant.display_address_line_2}`}</p>
             </Card.Content>
         </Card>
     );
