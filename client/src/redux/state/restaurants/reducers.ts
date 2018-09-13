@@ -22,7 +22,7 @@ const isDataLoadedReducer = (isDataLoaded = false, action:RestaurantAction) => {
             return isDataLoaded = true;
         case actionType.REJECTED_GET_RESTAURANTS:
         default:
-            return isDataLoaded = false;
+            return isDataLoaded;
     }
 }
 

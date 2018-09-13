@@ -2,7 +2,7 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import * as _ from 'lodash';
 
-import Restaurant from './../components/Restaurant/Restaurant'
+import CRestaurant from './../components/Restaurant/Restaurant'
 import { getRestaurants } from './../redux/state/restaurants/actions';
 
 interface Props {
@@ -21,8 +21,9 @@ class ListPage extends React.PureComponent<Props, {}> {
             this.props.isRestaurantsDataLoaded === false
             ? <p>...</p>
             : this.props.restaurants.map((restaurant:any) => {
-                return <Restaurant 
+                return <CRestaurant 
                     key = { restaurant.id }
+                    id = { restaurant.id }
                     name = { restaurant.name }
                     image_url = { restaurant.image_url }
                     is_closed = { restaurant.is_closed }
@@ -41,6 +42,7 @@ const mapStateToProps = (state:any): any => ({
     restaurants: _.get(state, 'restaurants.data', []),
     isRestaurantsDataLoaded: _.get(state, 'restaurants.isDataLoaded', false),
 })
+
 const mapDispatchToProps = ({
     getRestaurants,
 })

@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Route, Switch,  BrowserRouter as Router } from 'react-router-dom';
 
 import Home from './Home'
-import DetailPage from './DetailPage'
+import CDetailPage from './DetailPage'
 import cListPage from './ListPage'
 
 const Routes: React.StatelessComponent<{}> = () => {
@@ -10,8 +10,8 @@ const Routes: React.StatelessComponent<{}> = () => {
         <Router>
             <Switch>
                 <Route exact={true} path='/' component={Home} />
-                <Route exact={true} path='/detail' component={DetailPage} />
-                <Route exact={true} path='/list' component={cListPage} />
+                <Route exact={true} path='/restaurants' component={cListPage} />
+                <Route exact={true} path='/restaurants/*/:restaurantId' component={CDetailPage} />
             </Switch>
         </Router>
     )
