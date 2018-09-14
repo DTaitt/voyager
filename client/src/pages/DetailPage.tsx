@@ -1,54 +1,81 @@
 import * as React from 'react';
+import { PureComponent } from 'react';
 import { Card, Image } from 'semantic-ui-react'
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import * as _ from 'lodash';
 
+import { setDetailPageData } from './../redux/state/detailPage/actions';
+import { getRestaurants } from './../redux/state/restaurants/actions'
+import { parseRestaurantIdFromUrl } from './../utils/url'
 
-interface Props {
+import { Restaurant } from './ListPage';
+
+type Props = {
     key:string,
-    restaurant: {
-        id:string,
-        name:string,
-        image_url:string,
-        is_closed:boolean,
-        url:string,
-        review_count:number,
-        rating:number,
-        price:string,
-        phone:string,
-        display_address_line_1:string,
-        display_address_line_2:string,
+    setDetailPageData(restaurant:any):void,
+    isDetailPageDataSet: boolean,
+    pathname: string,
+    getRestaurants():void,
+    restaurant: Restaurant,
+    restaurants: Restaurant[],
+}
+
+class DetailPage extends PureComponent<Props, {}> {
+    componentDidMount() {
+        this.props.isDetailPageDataSet === false && this.setRestaurantsAndDetailPageData();
+    }
+    
+    async setRestaurantsAndDetailPageData() {
+        const restaurantId = parseRestaurantIdFromUrl(this.props.pathname);
+        
+        await this.props.getRestaurants();
+        const currentRestaurant = this.props.restaurants.find((restaurant:any) => {
+            return restaurant.id === restaurantId;
+        })
+
+        this.props.setDetailPageData(currentRestaurant)
+    }
+
+    render() {
+        const { restaurant } = this.props;
+        return (
+            this.props.isDetailPageDataSet === false
+            ? <p>...</p>
+            : <Card className='restaurant'>
+                <Image src={restaurant.image_url} />
+                <Card.Content>
+                <Card.Header>{restaurant.name}</Card.Header>
+                <Card.Meta>
+                    <span className='date'>Joined in 2015</span>
+                </Card.Meta>
+                <Card.Description>Matthew is a musician living in Nashville.</Card.Description>
+                </Card.Content>
+                <Card.Content extra>
+                    <p>Is closed: {restaurant.is_closed.toString()}</p>
+                    <Link to={restaurant.url}>Go to Yelp</Link>
+                    <p>Review Count: {restaurant.review_count}</p>
+                    <p>Rating: {restaurant.rating}</p>
+                    <p>Price: {restaurant.price}</p>
+                    <p>Phone: {restaurant.phone}</p>
+                    <p>Address: {`${restaurant.location.display_address[0]} ${restaurant.location.display_address[1]}`}</p>
+                </Card.Content>
+            </Card>
+        );
     }
 }
 
-const DetailPage = (props:Props) => {
-    const { restaurant } = props;
-    return (
-        <Card className='restuarant'>
-            <Image src={restaurant.image_url} />
-            <Card.Content>
-            <Card.Header>{restaurant.name}</Card.Header>
-            <Card.Meta>
-                <span className='date'>Joined in 2015</span>
-            </Card.Meta>
-            <Card.Description>Matthew is a musician living in Nashville.</Card.Description>
-            </Card.Content>
-            <Card.Content extra>
-                <p>Is closed: {restaurant.is_closed.toString()}</p>
-                <Link to={restaurant.url}>Go to Yelp</Link>
-                <p>Review Count: {restaurant.review_count}</p>
-                <p>Rating: {restaurant.rating}</p>
-                <p>Price: {restaurant.price}</p>
-                <p>Phone: {restaurant.phone}</p>
-                <p>Address: {`${restaurant.display_address_line_1} ${restaurant.display_address_line_2}`}</p>
-            </Card.Content>
-        </Card>
-    );
-}
-
 const mapStateToProps = (state:any):any => ({
-    restaurant: state.detailPage.data,
+    restaurants: _.get(state, 'restaurants.data', []),
+    restaurant: _.get(state, 'detailPage.data', {}),
+    isDetailPageDataSet: _.get(state, 'detailPage.isDataSet', false),
+    pathname: _.get(state, 'router.location.pathname', ''),
 })
 
-const CDetailPage = connect(mapStateToProps)(DetailPage)
-export default CDetailPage;
+const mapDispatchToProps = ({
+    setDetailPageData,
+    getRestaurants,
+})
+
+const C_DetailPage = connect(mapStateToProps, mapDispatchToProps)(DetailPage)
+export default C_DetailPage;

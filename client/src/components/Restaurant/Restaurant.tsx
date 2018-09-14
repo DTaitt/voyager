@@ -5,27 +5,17 @@ import { connect } from 'react-redux';
 
 import { setDetailPageData } from './../../redux/state/detailPage/actions'
 import { formatUrl } from './../../utils/url'
+import { Restaurant } from './../../pages/ListPage' 
 
-interface Props {
-    key:string,
-    id:string,
-    name:string,
-    image_url:string,
-    is_closed:boolean,
-    url:string,
-    review_count:number,
-    rating:number,
-    price:string,
-    phone:string,
-    display_address_line_1:string,
-    display_address_line_2:string,
+interface Props extends Restaurant {
     setDetailPageData(restaurant:any):void,
 }
 
 const Restaurant = (props:Props) => {
     const { setDetailPageData, ...restaurant } = props;
+
     return (
-        <Card className='restuarant'>
+        <Card className='restaurant'>
             <Link 
                 to={`restaurants/${formatUrl(restaurant.name)}/${restaurant.id}`}
                 onClick={() => props.setDetailPageData(restaurant)}
@@ -46,7 +36,7 @@ const Restaurant = (props:Props) => {
                 <p>Rating: {restaurant.rating}</p>
                 <p>Price: {restaurant.price}</p>
                 <p>Phone: {restaurant.phone}</p>
-                <p>Address: {`${restaurant.display_address_line_1} ${restaurant.display_address_line_2}`}</p>
+                <p>Address: {`${restaurant.location.display_address[0]} ${restaurant.location.display_address[1]}`}</p>
             </Card.Content>
         </Card>
     );
@@ -56,5 +46,5 @@ const mapDispatchToProps = ({
     setDetailPageData,
 })
 
-const CRestaurant = connect(null, mapDispatchToProps)(Restaurant)
-export default CRestaurant;
+const S_Restaurant = connect(null, mapDispatchToProps)(Restaurant)
+export default S_Restaurant;

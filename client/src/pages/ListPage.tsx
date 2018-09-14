@@ -2,13 +2,32 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import * as _ from 'lodash';
 
-import CRestaurant from './../components/Restaurant/Restaurant'
+import S_Restaurant from './../components/Restaurant/Restaurant'
 import { getRestaurants } from './../redux/state/restaurants/actions';
 
 interface Props {
     getRestaurants():void,
-    restaurants: [],
+    restaurants: Restaurant[],
     isRestaurantsDataLoaded: boolean,
+}
+
+export interface Restaurant {
+    id:string,
+    alias:string,
+    name:string,
+    image_url:string,
+    is_closed:boolean,
+    url:string,
+    review_count:number,
+    categories:object[],
+    rating:number,
+    coordinates:object,
+    transactions:any,
+    location:{ display_address:string[] },
+    price:string,
+    phone:string,
+    display_phone:string,
+    distance:number,
 }
 
 class ListPage extends React.PureComponent<Props, {}> {
@@ -20,21 +39,13 @@ class ListPage extends React.PureComponent<Props, {}> {
         return (
             this.props.isRestaurantsDataLoaded === false
             ? <p>...</p>
-            : this.props.restaurants.map((restaurant:any) => {
-                return <CRestaurant 
-                    key = { restaurant.id }
-                    id = { restaurant.id }
-                    name = { restaurant.name }
-                    image_url = { restaurant.image_url }
-                    is_closed = { restaurant.is_closed }
-                    url = { restaurant.url }
-                    review_count = { restaurant.review_count }
-                    rating = { restaurant.rating }
-                    price = { restaurant.price }
-                    phone = { restaurant.display_phone }
-                    display_address_line_1 = { restaurant.location.display_address[0] }
-                    display_address_line_2 = { restaurant.location.display_address[1] }
-                />
+            : this.props.restaurants.map((restaurant:Restaurant) => {
+                return(
+                    <S_Restaurant 
+                        key = { restaurant.id }
+                        { ...restaurant }
+                    />
+                ) 
             })
         );
     }

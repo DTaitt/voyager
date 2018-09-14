@@ -8,8 +8,9 @@ interface DetailPageAction {
 
 const detailPageDataReducer = (detailPageData = {}, action:DetailPageAction) => {
     switch (action.type) {
-        case actionType.SET_DETAIL_PAGE_DATA:
+        case actionType.RESOLVED_SET_DETAIL_PAGE_DATA:
             return action.payload;
+        case actionType.REJECTED_SET_DETAIL_PAGE_DATA:
         default:
             return detailPageData;
     }
@@ -17,8 +18,9 @@ const detailPageDataReducer = (detailPageData = {}, action:DetailPageAction) => 
 
 const isDetailPageDataSetReducer = (isDetailPageDataSet = false, action:DetailPageAction) => {
     switch (action.type) {
-        case actionType.SET_DETAIL_PAGE_DATA:
-            return true
+        case actionType.RESOLVED_SET_DETAIL_PAGE_DATA:
+            return true;
+        case actionType.REJECTED_SET_DETAIL_PAGE_DATA:
         default:
             return isDetailPageDataSet;
     }
