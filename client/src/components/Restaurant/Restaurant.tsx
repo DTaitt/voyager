@@ -1,18 +1,26 @@
 import * as React from 'react';
-import { Card, Image } from 'semantic-ui-react'
+import * as _ from 'lodash';
+import { Card, Image, Icon } from 'semantic-ui-react'
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import { setDetailPageData } from './../../redux/state/detailPage/actions'
+import { handleFavorites } from './../../redux/state/favorites/actions'
 import { formatUrl } from './../../utils/url'
 import { Restaurant } from './../../pages/ListPage' 
 
 interface Props extends Restaurant {
-    setDetailPageData(restaurant:any):void,
+    setDetailPageData(restaurant:Restaurant):void,
+    handleFavorites(fav:Restaurant):void,
+    favorites: [],
 }
 
 const Restaurant = (props:Props) => {
-    const { setDetailPageData, ...restaurant } = props;
+    const { setDetailPageData, favorites, ...restaurant } = props;
+
+    const isInFav = favorites.some(((fav:Restaurant) => {
+            return fav.id === restaurant.id
+        }))
 
     return (
         <Card className='restaurant'>
@@ -37,14 +45,23 @@ const Restaurant = (props:Props) => {
                 <p>Price: {restaurant.price}</p>
                 <p>Phone: {restaurant.phone}</p>
                 <p>Address: {`${restaurant.location.display_address[0]} ${restaurant.location.display_address[1]}`}</p>
+                <Icon 
+                    name={isInFav ? 'heart' : 'heart outline'} 
+                    onClick={() => {props.handleFavorites(restaurant)}}
+                />
             </Card.Content>
         </Card>
     );
 }
 
-const mapDispatchToProps = ({
-    setDetailPageData,
+const mapStateToProps = (state:any) => ({
+    favorites: _.get(state, 'favorites', []),
 })
 
-const S_Restaurant = connect(null, mapDispatchToProps)(Restaurant)
+const mapDispatchToProps = ({
+    setDetailPageData,
+    handleFavorites,
+})
+
+const S_Restaurant = connect(mapStateToProps, mapDispatchToProps)(Restaurant)
 export default S_Restaurant;

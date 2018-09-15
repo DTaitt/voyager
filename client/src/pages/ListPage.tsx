@@ -5,7 +5,7 @@ import * as _ from 'lodash';
 import S_Restaurant from './../components/Restaurant/Restaurant'
 import { getRestaurants } from './../redux/state/restaurants/actions';
 
-interface Props {
+export interface Props {
     getRestaurants():void,
     restaurants: Restaurant[],
     isRestaurantsDataLoaded: boolean,

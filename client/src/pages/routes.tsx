@@ -1,19 +1,19 @@
 import * as React from 'react';
-import { Route, Switch,  BrowserRouter as Router } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 
 import Home from './Home'
 import S_DetailPage from './DetailPage'
 import S_ListPage from './ListPage'
+import Profile from './Profile'
 
-const Routes: React.StatelessComponent<{}> = () => {
+const Routes:React.SFC<{}> = () => {
     return(
-        <Router>
-            <Switch>
-                <Route exact={true} path='/' component={Home} />
-                <Route exact={true} path='/restaurants' component={S_ListPage} />
-                <Route exact={true} path='/restaurants/*/:restaurantId' component={S_DetailPage} />
-            </Switch>
-        </Router>
+        <Switch>
+            <Route exact={true} path='/' component={Home} />
+            <Route exact={true} path='/restaurants' component={S_ListPage} />
+            <Route exact={true} path='/restaurants/*/:restaurantId' component={S_DetailPage} />
+            <Route exact={true} path='/profile' component={Profile} />
+        </Switch>
     )
 }
 

@@ -1,19 +1,18 @@
 import * as React from 'react';
+import * as _ from 'lodash';
 import { PureComponent } from 'react';
 import { Card, Image } from 'semantic-ui-react'
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import * as _ from 'lodash';
 
 import { setDetailPageData } from './../redux/state/detailPage/actions';
 import { getRestaurants } from './../redux/state/restaurants/actions'
 import { parseRestaurantIdFromUrl } from './../utils/url'
-
 import { Restaurant } from './ListPage';
 
 type Props = {
     key:string,
-    setDetailPageData(restaurant:any):void,
+    setDetailPageData(restaurant:Restaurant | undefined):void,
     isDetailPageDataSet: boolean,
     pathname: string,
     getRestaurants():void,
@@ -30,7 +29,7 @@ class DetailPage extends PureComponent<Props, {}> {
         const restaurantId = parseRestaurantIdFromUrl(this.props.pathname);
         
         await this.props.getRestaurants();
-        const currentRestaurant = this.props.restaurants.find((restaurant:any) => {
+        const currentRestaurant = this.props.restaurants.find((restaurant:Restaurant) => {
             return restaurant.id === restaurantId;
         })
 
