@@ -1,6 +1,6 @@
 import * as _ from 'lodash';
 
-import { Restaurant } from './../../../pages/ListPage'
+import { Business } from './../../../pages/ListPage'
 
 export const actionType = {
     HANDLE_FAVORITE: 'HANDLE_FAVORITE',
@@ -8,12 +8,12 @@ export const actionType = {
     DELETE_FAVORITE: 'DELETE_FAVORITE', 
 }
 
-export const handleFavorites = (restaurant:Restaurant) => {
+export const handleFavorites = (restaurant:Business) => {
     return (dispatch:any, getState:any) => {
         dispatch({type: actionType.HANDLE_FAVORITE})
 
         const { favorites } = getState();
-        const isInFav = favorites.some(((fav:Restaurant) => {
+        const isInFav = favorites.some(((fav:Business) => {
             return fav.id === restaurant.id
         }))
 

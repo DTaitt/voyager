@@ -1,6 +1,6 @@
 import * as _ from 'lodash';
 
-import { Restaurant } from './../../../pages/ListPage'
+import { Business } from './../../../pages/ListPage'
 
 export const actionType = {
     SET_DETAIL_PAGE_DATA: 'SET_DETAIL_PAGE_DATA',
@@ -8,15 +8,15 @@ export const actionType = {
     REJECTED_SET_DETAIL_PAGE_DATA: 'REJECTED_SET_DETAIL_PAGE_DATA', 
 }
 
-export const setDetailPageData = (restaurantData:Restaurant) => {
+export const setDetailPageData = (business:Business) => {
     return (dispatch:any) => {
         dispatch({ type: actionType.SET_DETAIL_PAGE_DATA })
         
-        _.isEmpty(restaurantData)
+        _.isEmpty(business)
         ? dispatch({type: actionType.REJECTED_SET_DETAIL_PAGE_DATA})
         : dispatch({
             type: actionType.RESOLVED_SET_DETAIL_PAGE_DATA,
-            payload: restaurantData,
+            payload: business,
         })
     }
 }

@@ -11,6 +11,7 @@ export const actionType = {
 export const getRestaurants = () => {
     return async (dispatch:any) => {
         dispatch({ type: actionType.GET_RESTAURANTS })
+
         try {
             const res = await axios.get(url.RESTAURANTS)
             dispatch({

@@ -1,5 +1,5 @@
 import { actionType } from './actions';
-import { Restaurant } from './../../../pages/ListPage';
+import { Business } from './../../../pages/ListPage';
 
 interface FavoriteAction {
     type:string,
@@ -16,7 +16,7 @@ const handleFavoriteReducer = (favorites = [], action:FavoriteAction) => {
                 action.payload,
             ]  
         case actionType.DELETE_FAVORITE:
-            return favorites.filter((fav:Restaurant) => {
+            return favorites.filter((fav:Business) => {
                 return fav.id !== action.payload.id;
             })  
         default:

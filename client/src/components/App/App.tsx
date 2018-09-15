@@ -10,6 +10,7 @@ const App = () => {
       <header>I'm a header</header>
         <Link to='/profile'>To Profile</Link>
         <Link to='/restaurants'>To restaurants</Link>
+        <Link to='/bars'>To bars</Link>
       <main>
         <MainContent />
       </main>

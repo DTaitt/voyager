@@ -3,10 +3,10 @@ import * as _ from 'lodash';
 import { PureComponent } from 'react'
 import { connect } from 'react-redux';
 
-import Restaurant from './../components/Restaurant/Restaurant'
+import S_Business from './../components/Business/Business'
 
 interface Props {
-    favorites: object[],
+    favorites: [],
 }
 
 class Profile extends PureComponent<Props, {}> {
@@ -16,7 +16,7 @@ class Profile extends PureComponent<Props, {}> {
             ? <p>No favorites</p>
             : this.props.favorites.map((fav:any) => {
                 return(
-                    <Restaurant
+                    <S_Business
                         key = { fav.id }
                         { ...fav }
                     />
