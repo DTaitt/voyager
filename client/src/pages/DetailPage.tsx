@@ -11,6 +11,8 @@ import { getRestaurants } from './../redux/state/restaurants/actions'
 import { getBars } from './../redux/state/bars/actions'
 import { Business } from './ListPage';
 
+import './DetailPage.css'
+
 type Props = {
     key:string,
     setDetailPageData(business:Business | undefined):void,
@@ -65,8 +67,8 @@ class DetailPage extends PureComponent<Props, {}> {
         return (
             this.props.isDetailPageDataSet === false
             ? <p>...</p>
-            : <Card className={this.props.business.category}>
-                <Image src={this.props.business.image_url} />
+            : <Card className='business_detail'>
+                <Image src={this.props.business.image_url} className='business_detail__image' />
                 <Card.Content>
                 <Card.Header>{this.props.business.name}</Card.Header>
                 <Card.Meta>

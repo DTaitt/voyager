@@ -1,13 +1,16 @@
 import * as React from 'react';
+import * as _ from 'lodash';
 import { Component } from 'react';
 import { connect } from 'react-redux';
-import * as _ from 'lodash';
+import { Dimmer, Loader } from 'semantic-ui-react';
 
 import S_Business from './../components/Business/Business'
 import { setListPageData } from './../redux/state/listPage/actions';
 
 import { getRestaurants } from './../redux/state/restaurants/actions';
 import { getBars } from './../redux/state/bars/actions';
+
+import './ListPage.css';
 
 export interface Props {
     getRestaurants():void,
@@ -75,17 +78,26 @@ class ListPage extends Component<Props, {}> {
 
     render() {
         return (
-            this.props.isListPageDataSet === false
-            ? <p>...</p>
-            : this.props.listPageData.map((business:Business) => {
-                return(
-                    <S_Business 
-                        key = { business.id }
-                        routeParams = { this.props.match.params }
-                        { ...business }
-                    />
-                ) 
-            })
+            <section className='business_list'>
+                <h2 className='business_list__title'>{this.props.match.params.category}</h2>
+                {
+                    this.props.isListPageDataSet === false
+                    ? (
+                        <Dimmer active>
+                            <Loader>Loading</Loader>
+                        </Dimmer>
+                        )
+                    : this.props.listPageData.map((business:Business) => {
+                        return(
+                            <S_Business 
+                                key = { business.id }
+                                routeParams = { this.props.match.params }
+                                { ...business }
+                            />
+                        ) 
+                    })
+                }
+            </section>
         );
     }
 }
@@ -106,5 +118,5 @@ const mapDispatchToProps = ({
     setListPageData,
 })
 
-const cListPage = connect<Props, {}>(mapStateToProps, mapDispatchToProps)(ListPage);
-export default cListPage;
+const S_ListPage = connect<Props, {}>(mapStateToProps, mapDispatchToProps)(ListPage);
+export default S_ListPage;

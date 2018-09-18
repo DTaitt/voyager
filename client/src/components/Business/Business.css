@@ -1,0 +1,14 @@
+.business_item {
+  width: 90vw !important; }
+  .business_item__fav_icon {
+    text-align: center; }
+
+@media only screen and (min-width: 768px) {
+  .business_item {
+    width: 100% !important;
+    flex-direction: row !important; }
+    .business_item__image {
+      width: 295px !important;
+      height: 295px !important; }
+    .business_item__detail_content {
+      text-align: center; } }

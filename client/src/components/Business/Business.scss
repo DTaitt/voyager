@@ -1,0 +1,20 @@
+.business_item {
+    width: 90vw !important;
+    &__fav_icon {
+        text-align: center;
+    }
+}
+
+@media only screen and (min-width:768px) {
+    .business_item {
+        width: 100% !important;
+        flex-direction: row !important;
+        &__image {
+            width: 295px !important;
+            height: 295px !important;
+        }
+        &__detail_content {
+            text-align: center;
+        }
+    }
+}
